@@ -1,10 +1,26 @@
+version: "3.8"
+
 services:
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+  backend:
+    build:
+      context: ./backend
     volumes:
-      - .:/app
+      - ./backend:/app
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=1
+    networks:
+      - mynetwork
+
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
