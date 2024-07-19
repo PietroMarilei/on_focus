@@ -1,5 +1,5 @@
 # Usa l'immagine base di Node.js
-FROM node:latest
+FROM node:20.15.0
 
 # Imposta la directory di lavoro nel container
 WORKDIR /app
@@ -13,8 +13,8 @@ RUN npm install
 # Copia il resto del codice dell'applicazione nel container
 COPY . .
 
-# Espone la porta 3000 per il server Angular
-EXPOSE 3000
+# Espone la porta 4200 per il server Angular
+EXPOSE 4200
 
 # Comando per avviare il server Angular
 CMD ["npm", "start"]
