@@ -37,6 +37,15 @@ services:
     networks:
       - mynetwork
 
+  adminer:
+    image: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    ports:
+      - "8080:8080"
+    networks:
+      - mynetwork
+
 networks:
   mynetwork:
     driver: bridge
