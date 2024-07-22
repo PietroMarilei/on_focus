@@ -10,6 +10,8 @@ services:
       - "8000:8000"
     networks:
       - mynetwork
+    depends_on:
+      - db
 
   frontend:
     build:
@@ -21,6 +23,23 @@ services:
     networks:
       - mynetwork
 
+  db:
+    image: mysql:8.0
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: on_the_run
+      MYSQL_USER: ontherunuser
+      MYSQL_PASSWORD: ontherunpassword
+    ports:
+      - "3307:3306"
+    networks:
+      - mynetwork
+
 networks:
   mynetwork:
     driver: bridge
+
+volumes:
+  mysql_data:

@@ -21,4 +21,5 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('on_the_run.urls')),
+        path('', include('auth.urls')),  # URL di autenticazione
 ]
