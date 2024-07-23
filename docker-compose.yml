@@ -37,12 +37,15 @@ services:
     networks:
       - mynetwork
 
-  adminer:
-    image: adminer
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
     environment:
-      ADMINER_DEFAULT_SERVER: db
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpassword
     ports:
-      - "8080:8080"
+      - "8080:80"
     networks:
       - mynetwork
 
