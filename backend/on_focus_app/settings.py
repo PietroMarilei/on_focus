@@ -14,6 +14,7 @@ INSTALLED_APPS = [
     'records',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
+    'corsheaders',
 ]
 
 # Quick-start development settings - unsuitable for production
@@ -26,10 +27,13 @@ SECRET_KEY = 'django-insecure-o@h_2*6@4#1lj8tc=g%u4=qhaf_%n0!oc75u5zp&k%3nauz1dg
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 # Application definition
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

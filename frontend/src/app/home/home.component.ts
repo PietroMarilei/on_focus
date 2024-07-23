@@ -16,6 +16,7 @@ export class HomeComponent {
   constructor() {}
 
   async login(credentials: { username: string; password: string }) {
+    console.log('Credenziali:', credentials);
     try {
       const response = await axios.post(
         'http://localhost:8000/api/token/',
