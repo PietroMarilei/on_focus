@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import axios from 'axios';
+import { FormsModule } from '@angular/forms'; // Importa FormsModule
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
+  imports: [FormsModule], // Aggiungi FormsModule agli imports
 })
 export class HomeComponent {
   username: string = '';
@@ -13,19 +15,18 @@ export class HomeComponent {
 
   constructor() {}
 
-  async login(event: Event): Promise<void> {
-    event.preventDefault();
-    const apiUrl = 'http://localhost:8000/auth/api/token/';
+  async login(credentials: { username: string; password: string }) {
     try {
-      const response = await axios.post(apiUrl, {
-        username: this.username,
-        password: this.password,
-      });
-      localStorage.setItem('access_token', response.data.access);
-      localStorage.setItem('refresh_token', response.data.refresh);
-      console.log('Login successful', response.data);
+      const response = await axios.post(
+        'http://localhost:8000/api/token/',
+        credentials
+      );
+      console.log('Token di accesso:', response.data.access);
+      console.log('Token di refresh:', response.data.refresh);
+      localStorage.setItem('accessToken', response.data.access);
+      localStorage.setItem('refreshToken', response.data.refresh);
     } catch (error) {
-      console.error('Login failed', error);
+      console.error('Errore durante il login:', error.response.data);
     }
   }
 }
