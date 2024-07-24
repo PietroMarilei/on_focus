@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
 import axios from 'axios';
 import { FormsModule } from '@angular/forms'; // Importa FormsModule
+import { RouterModule, Router } from '@angular/router'; // Importa RouterModule e Router
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [FormsModule], // Aggiungi FormsModule agli imports
 })
-export class HomeComponent {
+export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   async login(credentials: { username: string; password: string }) {
     console.log('Credenziali:', credentials);
@@ -26,6 +27,10 @@ export class HomeComponent {
       console.log('Token di refresh:', response.data.refresh);
       localStorage.setItem('accessToken', response.data.access);
       localStorage.setItem('refreshToken', response.data.refresh);
+
+      console.log('Registrazione riuscita:', response.data);
+      //redirect to login
+      this.router.navigate(['/counter']);
     } catch (error) {
       console.error('Errore durante il login:', error.response.data);
     }

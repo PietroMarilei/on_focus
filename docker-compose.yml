@@ -4,6 +4,8 @@ services:
   backend:
     build:
       context: ./backend
+    env_file:
+      - .env
     volumes:
       - ./backend:/app
     ports:
