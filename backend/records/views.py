@@ -1,11 +1,22 @@
-from rest_framework import views, status
+from rest_framework import views, status, permissions
 from rest_framework.response import Response
-from .models import StudySession, SessionTopic
-from .serializers import StudySessionSerializer, SessionTopicSerializer
+from rest_framework.exceptions import NotAuthenticated
+from .models import StudySession
+from .serializers import StudySessionSerializer
 from django.utils import timezone
 
 class StartSessionView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def post(self, request):
+        try:
+            self.check_permissions(request)
+        except NotAuthenticated:
+            return Response({
+                "error": "Non sei autenticato",
+                "details": "Devi essere autenticato per iniziare una sessione di studio."
+            }, status=status.HTTP_401_UNAUTHORIZED)
+
         session = StudySession.objects.create(
             user=request.user,
             session_date=timezone.now().date(),
@@ -14,7 +25,17 @@ class StartSessionView(views.APIView):
         return Response(StudySessionSerializer(session).data, status=status.HTTP_201_CREATED)
 
 class StopSessionView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def post(self, request, session_id):
+        try:
+            self.check_permissions(request)
+        except NotAuthenticated:
+            return Response({
+                "error": "Non sei autenticato",
+                "details": "Devi essere autenticato per fermare una sessione di studio."
+            }, status=status.HTTP_401_UNAUTHORIZED)
+
         session = StudySession.objects.get(id=session_id)
         session.ended_at = timezone.now()
         session.duration = (session.ended_at - session.started_at).total_seconds() / 60

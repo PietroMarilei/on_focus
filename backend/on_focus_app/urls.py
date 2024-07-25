@@ -27,5 +27,5 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/register/', UserRegistrationView.as_view(), name='user-register'),
-    path('records/', include('records.urls')),  # Includi le rotte dell'app records
+    path('api/records/', include('records.urls')), 
 ]
