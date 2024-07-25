@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/on_the_run",
+            "outputPath": "dist/on_focus",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "on_the_run:build:production"
+              "buildTarget": "on_focus:build:production"
             },
             "development": {
-              "buildTarget": "on_the_run:build:development"
+              "buildTarget": "on_focus:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -6,4 +6,4 @@ djangorestframework
 djangorestframework-simplejwt
 mysqlclient
 django-cors-headers>=3.10.0
-
+django-environ

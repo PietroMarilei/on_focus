@@ -1,5 +1,10 @@
 from pathlib import Path
 from datetime import timedelta
+import environ
+
+env = environ.Env()
+# Leggi il file .env
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,10 +74,10 @@ WSGI_APPLICATION = 'on_focus_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'on_the_run',
-        'USER': 'ontherunuser',
-        'PASSWORD': 'ontherunpassword',
-        'HOST': 'db',  # Nome del servizio Docker per MySQL
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': 'db',  # Usa il nome del servizio Docker Compose per il database
         'PORT': '3306',
     }
 }
