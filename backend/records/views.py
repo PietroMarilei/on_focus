@@ -58,3 +58,55 @@ class GetSessionView(views.APIView):
         session = get_object_or_404(StudySession, id=session_id, user=request.user)
         serializer = StudySessionSerializer(session)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class LongestSessionView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        try:
+            self.check_permissions(request)
+        except NotAuthenticated:
+            return Response({
+                "error": "Non sei autenticato",
+                "details": "Devi essere autenticato per visualizzare la sessione più lunga."
+            }, status=status.HTTP_401_UNAUTHORIZED)
+        # cerca la sessione piú lunga che sia stata chiusa
+        longest_session = StudySession.objects.filter(
+            user=request.user,
+            ended_at__isnull=False
+        ).order_by('-duration').first()
+
+        if longest_session:
+            serializer = StudySessionSerializer(longest_session)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                "message": "Nessuna sessione completata trovata."
+            }, status=status.HTTP_404_NOT_FOUND)  
+        
+class LastSessionView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        try:
+            self.check_permissions(request)
+        except NotAuthenticated:
+            return Response({
+                "error": "Non sei autenticato",
+                "details": "Devi essere autenticato per visualizzare l'ultima sessione di studio."
+            }, status=status.HTTP_401_UNAUTHORIZED)
+
+        # Cerca la sessione più recente, indipendentemente dal fatto che sia stata chiusa o meno
+        last_session = StudySession.objects.filter(
+            user=request.user,
+            ended_at__isnull=False
+        ).order_by('-started_at').first()
+
+        if last_session:
+            serializer = StudySessionSerializer(last_session)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                "message": "Nessuna ultima sessione trovata."
+            }, status=status.HTTP_404_NOT_FOUND)
+        

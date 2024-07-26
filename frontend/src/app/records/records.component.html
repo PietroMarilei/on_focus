@@ -10,16 +10,16 @@
 
     <!-- Component Start -->
     <div
-        class="flex flex-wrap items-center justify-center w-full max-w-4xl mt-8 my-text-grey">
+        class="flex flex-nowrap items-center justify-center w-full max-w-4xl mt-8 my-text-grey">
         <div
             class="flex flex-col flex-grow mt-8 overflow-hidden bg-white rounded-lg shadow-lg">
             <div class="flex flex-col items-center p-10 bg-emerald-300">
-                <span class="font-semibold">DATA</span>
+                <span class="font-semibold">{{ lastSession.session_date
+                    }}</span>
                 <div class="flex items-center">
 
-                    <span class="text-5xl font-bold">00</span>
-                    <span class="text-5xl font-bold">:</span>
-                    <span class="text-5xl font-bold">00</span>
+                    <span class="text-5xl font-bold">{{
+                        lastSession.duration }}</span>
 
                 </div>
             </div>
@@ -112,9 +112,10 @@
                 </ul>
             </div>
             <div class="flex px-10 pb-10 justfy-center">
-                <button
-                    class="flex items-center justify-center w-full h-12 px-6 text-sm uppercase bg-gray-200 rounded-lg">Start
-                    / Stop</button>
+                <button (click)="toggleSession()"
+                    class="flex items-center justify-center w-full h-12 px-6 text-sm uppercase bg-gray-200 rounded-lg">{{
+                    currentSession ? 'Stop Session' : 'Start Session'
+                    }}</button>
             </div>
         </div>
 
@@ -122,11 +123,12 @@
         <div
             class="flex flex-col flex-grow overflow-hidden bg-white rounded-lg shadow-lg mt-19">
             <div class="flex flex-col items-center p-10 bg-yellow-400">
-                <span class="font-semibold">Data</span>
+                <span class="font-semibold">{{ longestSession.session_date
+                    }}</span>
                 <div class="flex items-center">
-                    <span class="text-5xl font-bold">00</span>
-                    <span class="text-5xl font-bold">:</span>
-                    <span class="text-5xl font-bold">00</span>
+                    <span class="text-5xl font-bold">{{ longestSession.duration
+                        }}</span>
+
                 </div>
             </div>
             <div class="p-10">
