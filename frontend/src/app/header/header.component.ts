@@ -22,13 +22,13 @@ export class HeaderComponent {
   }
 
   checkLoginStatus() {
-    this.isLoggedIn = !!localStorage.getItem('accessToken');
+    this.isLoggedIn = !!localStorage.getItem('token');
   }
 
   handleLoginLogout() {
     if (this.isLoggedIn) {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('token');
+
       this.isLoggedIn = false;
       this.router.navigate(['/login']);
     } else {

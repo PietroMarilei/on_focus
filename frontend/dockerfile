@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 4200
 
 # Comando per avviare il server Angular
-CMD ["npm", "start"]
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
