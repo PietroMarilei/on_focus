@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiDomain: 'http://localhost:8000',
+  apiDomain: 'http://209.38.216.169:8000/api',
   //TODO: add port ?
 };
