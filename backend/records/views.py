@@ -39,7 +39,7 @@ class StopSessionView(views.APIView):
 
         session = StudySession.objects.get(id=session_id)
         session.ended_at = timezone.now()
-        session.duration = (session.ended_at - session.started_at).total_seconds() / 60
+        session.duration = (session.ended_at - session.started_at).total_seconds() 
         session.save()
         return Response(StudySessionSerializer(session).data, status=status.HTTP_200_OK)
     

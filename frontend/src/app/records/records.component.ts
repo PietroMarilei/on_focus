@@ -24,6 +24,8 @@ export class RecordsComponent implements OnInit {
   lastSession: StudySession | null = null;
   longestSession: StudySession | null = null;
   currentSession: StudySession | null = null;
+  elapsedTime: number = 0;
+  private intervalId: any;
   error: string | null = null;
 
   constructor(private router: Router, private authService: AuthService) {}
@@ -112,18 +114,46 @@ export class RecordsComponent implements OnInit {
       console.log('Stop Session', response.data);
 
       this.currentSession = null; // Reset current session
-      this.fetchLastSession(); // Refresh last session data
+      this.fetchLastSession();
+      this.fetchLongestSession(); // Refresh last session data
     } catch (error) {
       this.handleError(error);
     }
   }
 
+  startCounter() {
+    this.intervalId = setInterval(() => {
+      this.elapsedTime++;
+    }, 1000);
+  }
+
+  stopCounter() {
+    clearInterval(this.intervalId);
+  }
+
   async toggleSession() {
     if (this.currentSession) {
       await this.stopSession(this.currentSession.id);
+      this.stopCounter();
     } else {
       await this.startSession();
+      this.elapsedTime = 0;
+      this.startCounter();
     }
+  }
+
+  formatTime(time: number): string {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+
+    return `${this.padZero(hours)}:${this.padZero(minutes)}:${this.padZero(
+      seconds
+    )}`;
+  }
+
+  padZero(num: number): string {
+    return num.toString().padStart(2, '0');
   }
 
   private handleError(error: any) {
