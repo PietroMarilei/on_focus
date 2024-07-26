@@ -40,17 +40,17 @@ services:
     networks:
       - mynetwork
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    depends_on:
-      - db
-    environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "8080:80"
-    networks:
-      - mynetwork
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     PMA_HOST: db
+  #     MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     - mynetwork
 
 networks:
   mynetwork:

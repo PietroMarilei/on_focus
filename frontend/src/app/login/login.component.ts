@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import axios from 'axios';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
-import { RouterModule, Router } from '@angular/router'; // Importa RouterModule e Router
+import { FormsModule } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { NgZone } from '@angular/core';
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,16 +21,17 @@ export class LoginComponent {
   async login(credentials: { username: string; password: string }) {
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/token/',
+        `${environment.apiDomain}/api/token/`,
         credentials
       );
       this.authService.setToken(response.data.access);
       console.log('Login riuscito:', response);
-      //redirect to login
       this.router.navigate(['/records']);
-      console.log("this.router.navigate(['/records']);");
-    } catch (error) {
-      console.error('Errore durante il login:', error.response.data);
+    } catch (error: any) {
+      console.error(
+        'Errore durante il login:',
+        error.response?.data || error.message || error
+      );
     }
   }
 }

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../auth.service'; // Importa AuthService
+import { AuthService } from '../auth.service';
 import { LoginComponent } from '../login/login.component';
+import { environment } from '../../environments/environment';
 
 interface StudySession {
   id: number;
@@ -43,14 +44,18 @@ export class RecordsComponent implements OnInit {
       }
 
       const response = await axios.get<StudySession>(
-        `http://localhost:8000/api/records/last-session/`,
+        `${environment.apiDomain}/api/records/last-session/`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
       this.lastSession = response.data;
-    } catch (error) {
+    } catch (error: any) {
+      console.error(
+        "Errore nel recupero dell'ultima sessione:",
+        error.response?.data || error.message || error
+      );
       this.handleError(error);
     }
   }
@@ -63,14 +68,18 @@ export class RecordsComponent implements OnInit {
       }
 
       const response = await axios.get<StudySession>(
-        `http://localhost:8000/api/records/longest-session/`,
+        `${environment.apiDomain}/api/records/longest-session/`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
       this.longestSession = response.data;
-    } catch (error) {
+    } catch (error: any) {
+      console.error(
+        'Errore nel recupero della sessione più lunga:',
+        error.response?.data || error.message || error
+      );
       this.handleError(error);
     }
   }
@@ -83,7 +92,7 @@ export class RecordsComponent implements OnInit {
       }
 
       const response = await axios.post<StudySession>(
-        `http://localhost:8000/api/records/start-session/`,
+        `${environment.apiDomain}/api/records/start-session/`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -92,7 +101,11 @@ export class RecordsComponent implements OnInit {
       console.log('Start Session', response.data);
 
       this.currentSession = response.data;
-    } catch (error) {
+    } catch (error: any) {
+      console.error(
+        "Errore nell'avvio della sessione:",
+        error.response?.data || error.message || error
+      );
       this.handleError(error);
     }
   }
@@ -105,7 +118,7 @@ export class RecordsComponent implements OnInit {
       }
 
       const response = await axios.post<StudySession>(
-        `http://localhost:8000/api/records/stop-session/${sessionId}/`,
+        `${environment.apiDomain}/api/records/stop-session/${sessionId}/`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -113,10 +126,14 @@ export class RecordsComponent implements OnInit {
       );
       console.log('Stop Session', response.data);
 
-      this.currentSession = null; // Reset current session
+      this.currentSession = null;
       this.fetchLastSession();
-      this.fetchLongestSession(); // Refresh last session data
-    } catch (error) {
+      this.fetchLongestSession();
+    } catch (error: any) {
+      console.error(
+        "Errore nell'arresto della sessione:",
+        error.response?.data || error.message || error
+      );
       this.handleError(error);
     }
   }
@@ -157,18 +174,12 @@ export class RecordsComponent implements OnInit {
   }
 
   private handleError(error: any) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 401) {
-        this.error = 'Sessione scaduta. Effettua nuovamente il login.';
-        this.authService.clearToken();
-        this.router.navigate(['/login']);
-      } else if (error.response?.status === 404) {
-        this.error = 'Sessione non trovata.';
-      } else {
-        this.error = 'Errore nel caricamento dei dati. Riprova più tardi.';
-      }
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      this.error = 'Sessione scaduta. Effettua nuovamente il login.';
+      this.authService.clearToken();
+      this.router.navigate(['/login']);
     } else {
-      this.error = 'Si è verificato un errore imprevisto.';
+      this.error = 'Si è verificato un errore. Riprova più tardi.';
     }
   }
 }
