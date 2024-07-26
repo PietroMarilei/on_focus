@@ -1,14 +1,15 @@
-# Build stage
-FROM node:18.19.1 as build
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-RUN npm install -g @angular/cli
-RUN ng build --prod
+FROM node:18.19.1
 
-# Run stage
-FROM nginx:alpine
-COPY --from=build /app/dist/on_focus /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm cache clean --force
+RUN npm install
+RUN npm install -g @angular/cli
+
+COPY . .
+
+EXPOSE 4200
+
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
