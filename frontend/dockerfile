@@ -1,21 +1,15 @@
-# Usa l'immagine base di Node.js
 FROM node:20.15.0
 
-# Imposta la directory di lavoro nel container
 WORKDIR /app
 
-# Copia i file package.json e package-lock.json nel container
 COPY package.json package-lock.json ./
 
-# Installa le dipendenze
-RUN npm install
+RUN npm ci
 
-
-# Copia il resto del codice dell'applicazione nel container
 COPY . .
 
-# Espone la porta 4200 per il server Angular
+RUN npm install -g @angular/cli
+
 EXPOSE 4200
 
-# Comando per avviare il server Angular
-CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
