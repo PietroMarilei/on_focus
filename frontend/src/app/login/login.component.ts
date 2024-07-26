@@ -30,7 +30,7 @@ export class LoginComponent {
 
       console.log('Registrazione riuscita:', response.data);
       //redirect to login
-      this.router.navigate(['/counter']);
+      this.router.navigate(['/records']);
     } catch (error) {
       console.error('Errore durante il login:', error.response.data);
     }
