@@ -7,6 +7,7 @@
 if [ "$DJANGO_MANAGEPY_MIGRATE" = 'on' ]; then
     echo "Applicazione delle migrazioni..."
     python manage.py migrate
+
 fi
 
 # Avvia il server Django
