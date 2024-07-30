@@ -22,8 +22,8 @@ interface StudySession {
   styleUrls: ['./records.component.scss'],
 })
 export class RecordsComponent implements OnInit {
-  lastSession: StudySession | null = null;
-  longestSession: StudySession | null = null;
+  lastSession: StudySession = {} as StudySession;
+  longestSession: StudySession = {} as StudySession;
   currentSession: StudySession | null = null;
   elapsedTime: number = 0;
   private intervalId: any;
