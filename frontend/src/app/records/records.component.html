@@ -2,24 +2,25 @@
 <!-- component -->
 <div
     class="flex flex-col items-center justify-center min-h-screen p-10 text-white bg-gray-700 md:p-20 w-screen">
-    <div class="flex justify-between align-bottom items-end ">
-        <h3 class="text-xl pe-8 font-medium">Your Last </h3>
-        <h2 class="text-2xl px-14 font-medium">Actual Session</h2>
-        <h3 class="text-xl ps-8 font-medium">Your Best </h3>
-    </div>
+    <h2 class="text-3xl font-bold">
+        Start Your Study Session
+    </h2>
 
     <!-- Component Start -->
     <div
-        class="flex flex-nowrap items-center justify-center w-full max-w-4xl mt-8 my-text-grey">
+        class="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl mt-8 my-text-grey">
         <!-- card -->
         <div
-            class="flex flex-col flex-grow mt-8 overflow-hidden bg-white rounded-lg shadow-lg">
+            class="flex flex-col flex-grow my-8 overflow-hidden bg-white rounded-lg shadow-lg w-full order-2 md:order-1">
+
             <div class="flex flex-col items-center p-10 bg-emerald-300">
+                <h2 class="font-bold text-xl ">Your Latest</h2>
                 <span class="font-semibold">{{ lastSession?.session_date ||
                     'No session yet' }}</span>
                 <div class="flex items-center">
 
-                    <span class="text-5xl font-bold">{{ lastSession?.duration ||
+                    <span class="text-4xl sm:text-5xl font-bold">{{
+                        lastSession?.duration ||
                         '00:00:00' }}</span>
 
                 </div>
@@ -34,7 +35,7 @@
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-2">Lightsaber</span>
+                        <span class="ml-2">Check things</span>
                     </li>
                     <li class="flex items-center">
                         <svg class="w-5 h-5 text-green-600 fill-current"
@@ -44,7 +45,7 @@
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-2">Robe</span>
+                        <span class="ml-2">Learn Py</span>
                     </li>
                     <li class="flex items-center">
                         <svg class="w-5 h-5 text-green-600 fill-current"
@@ -54,7 +55,7 @@
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-2">Insurance</span>
+                        <span class="ml-2">Have fun</span>
                     </li>
                 </ul>
             </div>
@@ -66,13 +67,17 @@
         </div>
 
         <!-- Card 2 central -->
+        <!-- Card 2 -->
         <div
-            class="z-10 flex flex-col flex-grow mt-8 overflow-hidden transform bg-white rounded-lg shadow-lg md:scale-110">
+            class="z-10 flex flex-col flex-grow mt-8 overflow-hidden transform bg-white rounded-lg shadow-lg md:scale-110 w-full order-1 md:order-2">
+
             <div class="flex flex-col items-center p-10 bg-gray-200">
+
                 <span class="font-semibold">Today</span>
                 <div class="flex items-center">
 
-                    <span class="text-6xl font-bold">{{ formatTime(elapsedTime)
+                    <span class="text-4xl sm:text-6xl font-bold">{{
+                        formatTime(elapsedTime)
                         }}</span>
 
                 </div>
@@ -87,7 +92,7 @@
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-2 italic">Padawan +</span>
+                        <span class="ml-2 italic">Learn Angular</span>
                     </li>
                     <li class="flex items-center">
                         <svg class="w-5 h-5 text-green-600 fill-current"
@@ -97,17 +102,32 @@
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-2">Solo missions</span>
+                        <span class="ml-2">Play with Api</span>
                     </li>
                     <li class="flex items-center">
-                        <svg class="w-5 h-5 text-green-600 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd" />
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            version="1.1" width="13" height="13"
+                            viewBox="0 0 256 256" xml:space="preserve">
+
+                            <defs>
+                            </defs>
+                            <g
+                                style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+                                transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                                <path
+                                    d="M 5 90 c -1.28 0 -2.559 -0.488 -3.536 -1.465 c -1.953 -1.952 -1.953 -5.118 0 -7.07 l 80 -80 c 1.951 -1.952 5.119 -1.952 7.07 0 c 1.953 1.953 1.953 5.119 0 7.071 l -80 80 C 7.559 89.512 6.28 90 5 90 z"
+                                    style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #b4810a; fill-rule: nonzero; opacity: 1;"
+                                    transform=" matrix(1 0 0 1 0 0) "
+                                    stroke-linecap="round" />
+                                <path
+                                    d="M 85 90 c -1.279 0 -2.56 -0.488 -3.535 -1.465 l -80 -80 c -1.953 -1.953 -1.953 -5.119 0 -7.071 c 1.953 -1.952 5.118 -1.952 7.071 0 l 80 80 c 1.953 1.952 1.953 5.118 0 7.07 C 87.56 89.512 86.279 90 85 90 z"
+                                    style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #b4810a; fill-rule: nonzero; opacity: 1;"
+                                    transform=" matrix(1 0 0 1 0 0) "
+                                    stroke-linecap="round" />
+                            </g>
                         </svg>
-                        <span class="ml-2">Utility belt</span>
+                        <span class="ml-2">Improve checklist</span>
                     </li>
                 </ul>
             </div>
@@ -121,12 +141,15 @@
 
         <!-- Tile 3 -->
         <div
-            class="flex flex-col flex-grow overflow-hidden bg-white rounded-lg shadow-lg mt-19">
+            class="flex flex-col flex-grow overflow-hidden bg-white rounded-lg shadow-lg mt-19 w-full order-3 md:order-3">
             <div class="flex flex-col items-center p-10 bg-yellow-400">
+                <h2 class="font-bold text-2xl ">Your Best</h2>
                 <span class="font-semibold">{{ longestSession?.session_date ||
                     'No session yet' }}</span>
                 <div class="flex items-center">
-                    <span class="text-5xl font-bold">{{ longestSession?.duration
+
+                    <span class="text-4xl sm:text-5xl font-bold">{{
+                        longestSession?.duration
                         || '00:00:00' }}</span>
                 </div>
 
@@ -141,7 +164,7 @@
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-2 italic">Jedi Knight +</span>
+                        <span class="ml-2 italic">Deploy on VM</span>
                     </li>
                     <li class="flex items-center">
                         <svg class="w-5 h-5 text-green-600 fill-current"
@@ -151,7 +174,7 @@
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-2">Sit on council</span>
+                        <span class="ml-2">Drink Water</span>
                     </li>
                     <li class="flex items-center">
                         <svg class="w-5 h-5 text-green-600 fill-current"
@@ -161,7 +184,7 @@
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-2">Stock options</span>
+                        <span class="ml-2">Don't worry</span>
                     </li>
                 </ul>
             </div>
