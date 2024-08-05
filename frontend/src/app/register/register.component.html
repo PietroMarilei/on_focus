@@ -1,4 +1,4 @@
-<p>signup works!</p>
+
 <div class="bg-[#F9FAFB] h-screen w-screen flex items-center">
     <div class="h-max mx-auto flex flex-col items-center">
         <img class="h-[40px] w-[47px] mb-5"
@@ -6,6 +6,15 @@
             alt>
         <h1 class="text-xl font-bold text-center pb-10">Register your
             account</h1>
+        <div *ngIf="errorMessage"
+            class="error-message bg-red-500 p-2 m-2 rounded-md">
+            {{ errorMessage }} :
+            <div *ngIf="errorDetails">
+                <div *ngFor="let detail of getErrorDetails()">
+                    {{ detail }}
+                </div>
+            </div>
+        </div>
         <form class="bg-white shadow-xl p-10 flex flex-col gap-4 text-sm"
             (submit)="register({username: username, email: email, password: password})">
             <div>
@@ -39,15 +48,16 @@
                     type="submit" value="Register">
             </div>
             <div>
-                <p class="text-center">Or continue with</p>
+                <p class="text-center">Or</p>
             </div>
             <div class="flex gap-4">
                 <button
-                    class="bg-[#1D9BF0] w-1/2 py-1 rounded-md text-white font-bold cursor-pointer hover:bg-[#181196]">Twitter</button>
-                <button
-                    class="bg-[#24292F] w-1/2 py-1 rounded-md text-white font-bold cursor-pointer hover:bg-[#181196]">Github</button>
+                    class="bg-[#f0751d] w-full py-2 rounded-md text-white font-bold cursor-pointer hover:bg-[#181196]"
+                    (click)="redirectToLogin()">Login</button>
+
             </div>
         </form>
+
         <p class="text-sm text-gray-500 mt-10">Not a member? <a href="#"
                 class="text-[#4F46E5] font-bold">Start a 14 day free
                 trial</a></p>
